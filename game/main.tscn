@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://byti73gkerf5e"]
+
+[ext_resource type="Texture2D" uid="uid://cr3y170hxywm4" path="res://icon.svg" id="1_4impl"]
+[ext_resource type="Script" path="res://Objects/Rope2D/RopeAnchor.gd" id="2_s74is"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qa2vd"]
+radius = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_38oy8"]
+
+[node name="Main" type="Node2D"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(528, 344)
+
+[node name="PinJoint2D" type="PinJoint2D" parent="RigidBody2D"]
+position = Vector2(-96, -344)
+node_a = NodePath("../../RopeAnchor")
+node_b = NodePath("..")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_4impl")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CircleShape2D_qa2vd")
+metadata/_edit_lock_ = true
+
+[node name="RopeAnchor" type="CharacterBody2D" parent="."]
+position = Vector2(432, 0)
+script = ExtResource("2_s74is")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RopeAnchor"]
+shape = SubResource("CircleShape2D_38oy8")
