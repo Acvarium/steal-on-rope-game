@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://ei0p6gwcgiy7"]
+
+[ext_resource type="Texture2D" uid="uid://cr3y170hxywm4" path="res://icon.svg" id="1_1cx2i"]
+[ext_resource type="Script" path="res://Objects/Rope2D/rope_segment.gd" id="1_14a0i"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_46myp"]
+rough = true
+absorbent = true
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4o8k2"]
+radius = 1.0
+height = 16.0
+
+[node name="RopeSegment" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 0
+mass = 0.01
+inertia = 64.41
+physics_material_override = SubResource("PhysicsMaterial_46myp")
+script = ExtResource("1_14a0i")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.031, 100)
+texture = ExtResource("1_1cx2i")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7)
+shape = SubResource("CapsuleShape2D_4o8k2")
+
+[node name="Joint" type="PinJoint2D" parent="."]
+node_a = NodePath("..")
+bias = 0.9
+disable_collision = false
+softness = 16.0
+metadata/_edit_lock_ = true

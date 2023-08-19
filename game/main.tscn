@@ -1,35 +1,67 @@
-[gd_scene load_steps=5 format=3 uid="uid://byti73gkerf5e"]
+[gd_scene load_steps=6 format=3 uid="uid://byti73gkerf5e"]
 
 [ext_resource type="Texture2D" uid="uid://cr3y170hxywm4" path="res://icon.svg" id="1_4impl"]
 [ext_resource type="Script" path="res://Objects/Rope2D/RopeAnchor.gd" id="2_s74is"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_qa2vd"]
-radius = 32.0
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_38oy8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5pc75"]
+size = Vector2(62, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w0k4q"]
+size = Vector2(64, 1113)
 
 [node name="Main" type="Node2D"]
 
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2(528, 344)
+[node name="RopeAnchor" type="CharacterBody2D" parent="."]
+position = Vector2(600, -3008)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("2_s74is")
+body_path = NodePath("../Body")
+segment_holder = NodePath("../SegmentHolder")
 
-[node name="PinJoint2D" type="PinJoint2D" parent="RigidBody2D"]
-position = Vector2(-96, -344)
-node_a = NodePath("../../RopeAnchor")
-node_b = NodePath("..")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RopeAnchor"]
+shape = SubResource("CircleShape2D_38oy8")
 
-[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(430, 344)
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+
+[node name="Body" type="RigidBody2D" parent="."]
+position = Vector2(430, 344)
+mass = 0.01
+angular_damp = 1.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Body"]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_4impl")
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-shape = SubResource("CircleShape2D_qa2vd")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
+shape = SubResource("RectangleShape2D_5pc75")
 metadata/_edit_lock_ = true
 
-[node name="RopeAnchor" type="CharacterBody2D" parent="."]
-position = Vector2(432, 0)
-script = ExtResource("2_s74is")
+[node name="Joint" type="PinJoint2D" parent="Body"]
+position = Vector2(0, -32)
+node_a = NodePath("..")
+bias = 0.9
+softness = 16.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RopeAnchor"]
-shape = SubResource("CircleShape2D_38oy8")
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Body"]
+remote_path = NodePath("../../Camera2D")
+update_rotation = false
+update_scale = false
+
+[node name="SegmentHolder" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-5, 337.5)
+shape = SubResource("RectangleShape2D_w0k4q")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1379, 337.5)
+shape = SubResource("RectangleShape2D_w0k4q")
