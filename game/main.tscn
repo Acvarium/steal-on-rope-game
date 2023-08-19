@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://byti73gkerf5e"]
+[gd_scene load_steps=7 format=3 uid="uid://byti73gkerf5e"]
 
 [ext_resource type="Texture2D" uid="uid://cr3y170hxywm4" path="res://icon.svg" id="1_4impl"]
+[ext_resource type="Texture2D" uid="uid://csdtni1oo5sty" path="res://Sprites/grid.png" id="1_b74w1"]
 [ext_resource type="Script" path="res://Objects/Rope2D/RopeAnchor.gd" id="2_s74is"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_38oy8"]
@@ -12,6 +13,15 @@ size = Vector2(62, 60)
 size = Vector2(64, 1113)
 
 [node name="Main" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.203922)
+offset_left = -1900.0
+offset_top = -989.0
+offset_right = 3346.0
+offset_bottom = 2558.0
+texture = ExtResource("1_b74w1")
+stretch_mode = 1
 
 [node name="RopeAnchor" type="CharacterBody2D" parent="."]
 position = Vector2(600, -3008)
@@ -25,12 +35,12 @@ segment_holder = NodePath("../SegmentHolder")
 shape = SubResource("CircleShape2D_38oy8")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(430, 344)
+position = Vector2(430, 400)
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
 
 [node name="Body" type="RigidBody2D" parent="."]
-position = Vector2(430, 344)
+position = Vector2(430, 400)
 mass = 0.01
 angular_damp = 1.0
 
@@ -44,7 +54,7 @@ shape = SubResource("RectangleShape2D_5pc75")
 metadata/_edit_lock_ = true
 
 [node name="Joint" type="PinJoint2D" parent="Body"]
-position = Vector2(0, -32)
+position = Vector2(0, -26.94)
 node_a = NodePath("..")
 bias = 0.9
 softness = 16.0
@@ -65,3 +75,7 @@ shape = SubResource("RectangleShape2D_w0k4q")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(1379, 337.5)
 shape = SubResource("RectangleShape2D_w0k4q")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_b74w1")
